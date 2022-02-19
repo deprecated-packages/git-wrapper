@@ -47,6 +47,9 @@ final class GitProcess extends Process
         parent::__construct($commandLine, $cwd, $env, null, (float) $gitWrapper->getTimeout());
     }
 
+    /**
+     * @param callable(int $callback, mixed $data): bool | null $callback
+     */
     public function start(?callable $callback = null, array $env = []): void
     {
         $gitPrepareEvent = new GitPrepareEvent($this->gitWrapper, $this, $this->gitCommand);
@@ -60,6 +63,9 @@ final class GitProcess extends Process
         }
     }
 
+    /**
+     * @param callable(int $callback, mixed $data): bool | null $callback
+     */
     public function wait(?callable $callback = null): int
     {
         if ($this->gitCommand->isBypassed()) {
